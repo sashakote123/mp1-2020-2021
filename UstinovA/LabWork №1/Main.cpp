@@ -4,10 +4,10 @@
 #include "malloc.h"
 #include "time.h"
 #include "string.h"
-int comp = 0; /*Количество сравнений*/
-int perm = 0; /*Количество перестановок*/
+int comp = 0; /*Number of comparisons*/
+int perm = 0; /*Number of permutations*/
 
-void swap(float* a, float* b) /*Перестановка значений двух переменных*/
+void swap(float* a, float* b) /*Swap variables*/
 {
 	float tmp;
 	tmp = *a;
@@ -20,7 +20,7 @@ int compare(const void* x1, const void* x2)
 	return (*(float*)x1 - *(float*)x2);
 }
 
-void insertsort(float* array, int size) /*Сортировка вставками*/
+void insertsort(float* array, int size) /*Insertion sort*/
 {
 	int k = 0;
 	for (int i = 1; i < size; i++)
@@ -42,7 +42,7 @@ void insertsort(float* array, int size) /*Сортировка вставками*/
 	comp += perm;
 }
 
-int partition(float* a, int l, int r) /*Функция перестановки элементов в быстрой сортировке*/
+int partition(float* a, int l, int r) /*Permutation of elements (quicksort)*/
 {
 	float v = a[(l + r) / 2];
 	int i = l;
@@ -59,7 +59,7 @@ int partition(float* a, int l, int r) /*Функция перестановки элементов в быстрой
 	return j;
 }
 
-void quicksort(float* array, int l, int r) /*Быстрая ортировка*/
+void quicksort(float* array, int l, int r) /*Quicksort (main part)*/
 {
 	if (l < r)
 	{
@@ -69,7 +69,7 @@ void quicksort(float* array, int l, int r) /*Быстрая ортировка*/
 	}
 }
 
-void merge(float* arr, float* l, float* r, int lcount, int rcount) /*Функция слияния двух упорядоченных массивов*/
+void merge(float* arr, float* l, float* r, int lcount, int rcount) /*Merge of two ordered arrays (merge sort)*/
 {	
 	int i = 0, j = 0, k = 0;
 	while ((i < lcount) && (j < rcount))
@@ -83,7 +83,7 @@ void merge(float* arr, float* l, float* r, int lcount, int rcount) /*Функция сли
 	while (j < rcount) {arr[k++] = r[j++]; perm++;}
 }
 
-void mergesort(float* array, int n) /*Сортировка слиянием*/
+void mergesort(float* array, int n) /*Merge sort (main part)*/
 {
 	int mid;
 	if (n < 2) return;
@@ -99,7 +99,7 @@ void mergesort(float* array, int n) /*Сортировка слиянием*/
 	free(r);
 }
 
-void createCounters(float* data, long* counters, long N) /*Подсчёт значений байтов (radix sort)*/
+void createCounters(float* data, long* counters, long N) /*Counting values of bytes (radix sort)*/
 {
 	unsigned char* bp = (unsigned char*)data;
 	unsigned char* dataEnd = (unsigned char*)(data + N);
@@ -111,7 +111,7 @@ void createCounters(float* data, long* counters, long N) /*Подсчёт значений байт
 	}
 }
 
-void radixPass(short offset, long N, float* source, float* dest, long* count) /*Сортировка массива по одному разряду (radix sort)*/
+void radixPass(short offset, long N, float* source, float* dest, long* count) /*Sorting by the radix with counting sort (radix sort)*/
 {
 	float* sp;
 	long s = 0, c, i, * cp = count;
@@ -130,7 +130,7 @@ void radixPass(short offset, long N, float* source, float* dest, long* count) /*
 	}
 }
 
-void radixSort(float* in, float* out, long N) /*Поразрядная сортировка*/
+void radixSort(float* in, float* out, long N) /*Radix sort (main part)*/
 {
 	long* count;
 	long* counters = (long*)malloc(1024 * sizeof(long));
@@ -151,7 +151,7 @@ void radixSort(float* in, float* out, long N) /*Поразрядная сортировка*/
 	free(counters);
 }
 
-void CreateArray(float* arr, float* check, int n) /*Заполнение основного массива и проверочного массива*/
+void CreateArray(float* arr, float* check, int n) /*Filling the original array and check-array*/
 {
 	srand(time(NULL));
 	for (int i = 0; i < n; i++)
@@ -164,36 +164,34 @@ void CreateArray(float* arr, float* check, int n) /*Заполнение основного массива
 	}
 
 }
-void CheckArray(float* arr, float* check, int n) /*Проверка корректности сортировки*/
+void CheckArray(float* arr, float* check, int n) /*Checking the sort*/
 {
 	int count = 0;
 	qsort(check, n, sizeof(float), compare);
 	for (int i = 0; i < n; i++)
 		if (check[i]>arr[i] || check[i]<arr[i]) count++;
-	if (count == 0) printf("Массив отсортирован успешно!\n");
-	else printf("Массив не отсортирован успешно :/\n");
+	if (count == 0) printf("Array has been sorted successfully!\n");
+	else printf("Array hasn't been sorted successfully :/\n");
 }
 
 int main()
 {
-	setlocale(LC_ALL, "Rus");
-	int length; /*Длина массива*/
+	int length; /*Array length*/
 	int a = 0;
 	int exitcode = 0;
-	printf("Введите количество элементов массива: ");
+	printf("Enter the length of array: ");
 	scanf_s("%d", &length);
-	float* arr = (float*)malloc(length * sizeof(float)); /*Основной массив*/
-	float* add = (float*)malloc(length * sizeof(float)); /*Дополнительный массив (radix sort)*/
-	float* check = (float*)malloc(length * sizeof(float)); /*Проверочный массив*/
+	float* arr = (float*)malloc(length * sizeof(float)); /*Original array*/
+	float* add = (float*)malloc(length * sizeof(float)); /*Additional array (radix sort)*/
+	float* check = (float*)malloc(length * sizeof(float)); /*Check-array*/
 	CreateArray(arr, check, length);
-	printf("Выберите вид сортировки:\n");
-	printf("1 - сортировка вставками\n");
-	printf("2 - быстрая сортировка\n");
-	printf("3 - сортировка слиянием\n");
-	printf("4 - поразрядная сортировка\n");
-	printf("Введите номер сортировки: ");
+	printf("1 - selection sort\n");
+	printf("2 - quicksort\n");
+	printf("3 - merge sort\n");
+	printf("4 - radix sort\n");
+	printf("Enter the number of sort: ");
 	scanf_s("%d", &a);
-	/*Выбор сортировки*/
+	/*Sort selection*/
 	do
 	{
 		switch (a)
@@ -215,15 +213,15 @@ int main()
 			exitcode = 1;
 			break;
 		default:
-			printf("Введено некорректное значение, попробуйте снова\n\n");
-			printf("Введите номер сортировки: ");
+			printf("Wrong value, try again\n\n");
+			printf("Enter the number of sort: ");
 			scanf_s("%d", &a);
 		}
 	} while (exitcode != 1);
-	printf("Размер массива: %d\n", length);
-	printf("Номер сортировки: %d\n", a);
-	printf("Количество сравнений: %d\n", comp);
-	printf("Количество перестановок: %d\n", perm);
+	printf("Length of array: %d\n", length);
+	printf("Number of sort: %d\n", a);
+	printf("Number of comparisons: %d\n", comp);
+	printf("Number of permutations: %d\n", perm);
 	CheckArray(arr, check, length);
 	free(arr);
 	free(add);
