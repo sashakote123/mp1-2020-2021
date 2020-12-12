@@ -185,7 +185,7 @@ int main()
 	float* add = (float*)malloc(length * sizeof(float)); /*Additional array (radix sort)*/
 	float* check = (float*)malloc(length * sizeof(float)); /*Check-array*/
 	CreateArray(arr, check, length);
-	printf("1 - selection sort\n");
+	printf("1 - insertion sort\n");
 	printf("2 - quicksort\n");
 	printf("3 - merge sort\n");
 	printf("4 - radix sort\n");
