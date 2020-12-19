@@ -1,10 +1,3 @@
-#include <stdio.h>
-#include <time.h>
-#include <conio.h>
-#include <math.h>
-#include <malloc.h>
-
-
 void fill_array_randomly(float array[], int size);
 void show_array(float array[], int size);
 void check_array_for_sorting(float array[], int size);
