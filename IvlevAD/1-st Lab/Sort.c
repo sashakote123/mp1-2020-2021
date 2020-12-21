@@ -38,20 +38,20 @@ void ShellSort(unsigned int n, float array[]) //Сортировка Шелла,
     {
         for (i = step; i < n; i++)
         {
+            comparison++;
             for (j = i; j >= step && array[j] < array[j-step]; j-=step)
             {
                 tmp = array[j];
                 array[j] = array[j-step];
                 array[j-step] = tmp;
                 permutation++;
-                comparison++;
             }
         }
     }
 }
 
 void Merge(unsigned int f, unsigned int l, float array[], float dparray[]) //Подпрограмма сортировки слиянием
-//Сортирует и объединяет подмассивы
+//Сортирует и возвращает подмассивы
 //f - элемент начала сортировки (0 по умолчанию, сортирует с начала)
 //l - элемент конца сортировки  (n-1 по умолчанию, сортирует до конца)
 //array[] - массив для сортировки, dparray[] - дополнительный массив размером n
@@ -72,7 +72,6 @@ void Merge(unsigned int f, unsigned int l, float array[], float dparray[]) //П�
         {
                 dparray[j] = array[fin];
                 fin++;
-                permutation++;
         }
     }
     for (unsigned int i = f; i <= l; i++)

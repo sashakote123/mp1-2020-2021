@@ -13,7 +13,7 @@ void TestSort(unsigned int n,float array[], float newnewarray[]) //Провер�
     }
     if (count != 0)
     {
-        printf("Error %u\n", count);
+        printf("Error\n", count);
     }
     else
     {
