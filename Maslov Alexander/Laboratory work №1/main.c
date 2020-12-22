@@ -3,21 +3,24 @@
 #include <conio.h>
 #include <math.h>
 #include <malloc.h>
+#include <stdlib.h>
+#include <vcruntime_string.h>
 
-#define SIZE 100000
+
+int comparisons = 0;
+int permutations = 0;
 
 
 void fill_array_randomly(float array[], int size)
 {
-	for (int i = 0; i < size; i++) 
+	for (int i = 0; i < size; i++)
 	{
-		srand(time(NULL)^i);
+		srand(time(NULL) ^ i);
 		array[i] = (rand() / 3.14) * pow(-1, rand());
 	}
 }
 
-void show_array(float array[], int size) 
-{
+void show_array(float array[], int size) {
 	for (int i = 0; i < size; ++i)
 	{
 		printf("%f ", array[i]);
@@ -28,9 +31,9 @@ void show_array(float array[], int size)
 void check_array_for_sorting(float array[], int size)
 {
 	int counter = 0;
-	for (int i = 1; i < size; ++i) 
+	for (int i = 1; i < size; ++i)
 	{
-		if (array[i] < array[i - 1]) 
+		if (array[i] < array[i - 1])
 		{
 			counter++;
 		}
@@ -49,6 +52,7 @@ int find_max_index(float array[], int size)
 	int max_elem_index = 0;
 	for (int j = 1; j <= size; j++)
 	{
+		comparisons++;
 		if (array[j] >= array[max_elem_index])
 		{
 			max_elem_index = j;
@@ -63,6 +67,7 @@ void swap(float* a, float* b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+	permutations++;
 }
 
 void merge(float array[], int size)
@@ -75,6 +80,8 @@ void merge(float array[], int size)
 	int left_array_counter = 0, right_array_counter = 0, third_array_counter = 0;
 	while (1)
 	{
+		comparisons +=3;
+		permutations++;
 		if (array[left_array_counter] < right_array_part[right_array_counter])
 		{
 			third_arrray[third_array_counter] = array[left_array_counter];
@@ -109,6 +116,7 @@ void merge(float array[], int size)
 		}
 	}
 	memcpy(array, third_arrray, size * sizeof(float));
+	permutations += size;
 	free(third_arrray);
 
 }
@@ -144,15 +152,28 @@ void radix_pass(short offset, int size, float* source, float* dest, int* count)
 		cp = count + *bp;
 		dest[*cp] = *sp;
 		(*cp)++;
+		permutations++;
 	}
 }
+
+int input_array(float arr[], int size) 
+	{
+	printf("Input %d numbers\n", size);
+	for (int i = 0; i < size; i++) 
+		{
+		printf("array[%d] = ", i);
+		scanf_s("%f", &arr[i]);
+		}
+	printf("Array was filled\n");
+	return 0;
+	}
 
 
 
 
 void selection_sort(float array[], int size)
 {
-	for (int last_unsorted_index = size -1; last_unsorted_index > 0; last_unsorted_index--)
+	for (int last_unsorted_index = size - 1; last_unsorted_index > 0; last_unsorted_index--)
 	{
 		int max_elem_index = find_max_index(array, last_unsorted_index);
 		swap(&array[max_elem_index], &array[last_unsorted_index]);
@@ -168,8 +189,10 @@ void shell_sort(float array[], int size)
 		for (i = step; i < size; i++)
 		{
 			temporary = array[i];
+			permutations++;
 			for (j = i; j >= step; j = j - step)
 			{
+				comparisons++;
 				if (temporary < array[j - step])
 				{
 					array[j] = array[j - step];
@@ -178,9 +201,10 @@ void shell_sort(float array[], int size)
 				{
 					break;
 				}
-				
+
 			}
 			array[j] = temporary;
+			permutations++;
 		}
 	}
 }
@@ -208,7 +232,7 @@ void radix_sort(float* array, int size)
 	int* count;
 	int k = 0;
 	create_counters(array, counters, size);
-	for (unsigned short i = 0; i < sizeof(float); i++) 
+	for (unsigned short i = 0; i < sizeof(float); i++)
 	{
 		count = counters + 256 * i;
 		radix_pass(i, size, array, temporary_array, count);
@@ -226,9 +250,61 @@ void radix_sort(float* array, int size)
 	{
 		array[size - k + i] = temporary_array[i];
 	}
+	permutations++;
 	memcpy(array, temporary_array, size * sizeof(float));
 	free(temporary_array);
 	free(counters);
 }
 
 
+
+int main()
+{
+
+	int size;
+	int option = 0;
+	int exitcode = 0;
+	printf("Enter the length of array: ");
+	scanf_s("%d", &size);
+	float* array = (float*)malloc(size * sizeof(float));
+	input_array(array, size);
+	show_array(array, size);
+	printf("1 - selection sort\n");
+	printf("2 - shell sort\n");
+	printf("3 - merge sort\n");
+	printf("4 - radix sort\n");
+	printf("Enter the number of sort: ");
+	scanf_s("%d", &option);
+
+	do
+	{
+		switch (option)
+		{
+		case 1:
+			selection_sort(array, size);
+			exitcode = 1;
+			break;
+		case 2:
+			shell_sort(array, size);
+			exitcode = 1;
+			break;
+		case 3:
+			merge_sort(array, size);
+			exitcode = 1;
+			break;
+		case 4:
+			radix_sort(array, size);
+			exitcode = 1;
+			break;
+		default:
+			printf("Wrong value, try again\n\n");
+			printf("Enter the number of sort: ");
+			scanf_s("%d", &option);
+		}
+	} while (exitcode != 1);
+	show_array(array, size);
+	printf("Number of sort: %d\n", option);
+	printf("Number of comparisons: %d\n", comparisons);
+	printf("Number of permutations: %d\n", permutations);
+	free(array);
+}
