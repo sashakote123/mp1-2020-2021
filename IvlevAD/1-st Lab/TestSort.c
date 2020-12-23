@@ -1,3 +1,7 @@
+#include "TestSort.h"
+#include "Sort.h"
+#include <stdio.h>
+
 void TestSort(unsigned int n,float array[], float newnewarray[]) //Проверка отсортированного массива
 //n - длина массива
 //array[] - массив после сортировки

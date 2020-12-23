@@ -1,5 +1,6 @@
 #include <math.h>
 #include <string.h>
+#include "Sort.h"
 
 unsigned int permutation = 0;//Число перестановок
 unsigned int comparison = 0;//Число сравнений
