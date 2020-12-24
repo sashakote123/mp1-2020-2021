@@ -4,7 +4,6 @@
 #endif
 #include <stdio.h>
 #include <conio.h>
-#include <time.h>
 
 struct bytes8
 {
@@ -92,7 +91,6 @@ int main(int argc, char **argv)
 	}
 	fclose(f);
 	int i = 0, j =  n - 1;
-	int t0 = clock();
 	while (i < j)
 	{
 		if ((a[i].b.a >> 63) & 1)
@@ -115,11 +113,10 @@ int main(int argc, char **argv)
 	}
 	radixmn(a, 0, i - 1, 62);
 	radix(a, i, n - 1, 62);
-	int t1 = clock();
-	/*for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		printf("%lf ", a[i].d);
-	}*/
-	printf("%d %lf", n, (double)(t1 - t0) / CLOCKS_PER_SEC);
+	}
+	free(a);
 	return 0;
 }

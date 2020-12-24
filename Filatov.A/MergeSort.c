@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
-#include <time.h>
 
 void merge(double* a, double* b, int l, int r)
 {
@@ -47,13 +46,12 @@ int main(int argc, char **argv)
 		b[i] = a[i];
 	}
 	fclose(f);
-	int t0 = clock();
 	merge(a, b, 0, n - 1);
-	int t1 = clock();
-	/*for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
-	printf("%f\n", a[i]);
-	}*/
-	printf("%d %lf", n, (double)(t1 - t0) / CLOCKS_PER_SEC);
+		printf("%f\n", a[i]);
+	}
+	free(a);
+	free(b);
 	return 0;
 }

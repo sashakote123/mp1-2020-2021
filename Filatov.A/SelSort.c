@@ -3,7 +3,6 @@
 #pragma warning(disable:4996)
 #endif
 #include <stdio.h>
-#include <time.h>
 #include <malloc.h>
 
 int main(int argc, char **argv)
@@ -20,7 +19,6 @@ int main(int argc, char **argv)
 	fclose(f);
 	int m;
 	double temp;
-	int t0 = clock();
 	for (int i = 0; i < n; i++)
 	{
 		m = i;
@@ -33,12 +31,10 @@ int main(int argc, char **argv)
 		a[i] = a[m];
 		a[m] = temp;
 	}
-	int t1 = clock();
-	/*for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		printf("%lf\n", a[i]);
-	}*/
-	printf("%d %lf", n, (double)(t1 - t0) / CLOCKS_PER_SEC);
+	}
 	free(a);
 	return 0;
 }

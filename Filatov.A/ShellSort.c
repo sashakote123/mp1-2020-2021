@@ -3,7 +3,6 @@
 #pragma warning(disable:4996)
 #endif
 #include <stdio.h>
-#include <time.h>
 
 int main(int argc, char **argv)
 {
@@ -18,7 +17,6 @@ int main(int argc, char **argv)
 	}
 	fclose(f);
 	double temp;
-	int t0 = clock();
 	for (int s = n / 2; s > 0; s /= 2)
 	{
 		for (int i = s; i < n; i++)
@@ -31,12 +29,10 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-	int t1 = clock();
-	/*for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
-	printf("%lf\n", a[i]);
-	}*/
-	printf("%d %lf", n, (double)(t1 - t0) / CLOCKS_PER_SEC);
+		printf("%lf\n", a[i]);
+	}
 	free(a);
 	return 0;
 }
