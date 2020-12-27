@@ -5,9 +5,8 @@
 #include <math.h>
 #include <string.h>
 #include<time.h>
-# -*- coding: utf-8 -*-
-int count1 = 0;//êîëè÷åñòâî ñðàâíåíèé
-int count2 = 0;//êîëè÷åñòâî ïåðåñòàíîâîê
+int count1 = 0;
+int count2 = 0;
 int flag = 0;
 int checkflag = 0;
 int K, n, k;
@@ -54,10 +53,10 @@ void checking(float* array, float* check, int n)
     }
     if (flag == 1)
     {
-        printf("Ñîðòèðîâêà ïðîâåäåíà íåêîððåêòíî\n");
+        printf("Sorting was performed incorrectly\n");
     }
     else {
-        printf("Ñîðòèðîâêà ïðîâåäåíà êîððåêòíî\n");
+        printf("Sorting was performed correctly\n");
     }
 
 
@@ -221,14 +220,13 @@ void radixSort(float* in, float* out, int N) {
 
 int main()
 {
-    system("chcp 1251");
-    system("cls");
-    printf("Ââåäèòå äëèííó ìàññèâà: ");
+    
+    printf("Enter the length of the array: ");
     scanf_s("%d", &n);
-    printf("Ñïîñîá çàïîëíåíèÿ ìàññèâà:\n ");
-    printf("1. Ñëó÷àéíûé ìàññèâ\n ");
-    printf("2. Ââîä ñ êëàâèàòóðû\n ");
-    printf("Ââåäèòå íîìåð ñïîñîáà:\n ");
+    printf("Method of filling the array:\n ");
+    printf("1. The random array\n ");
+    printf("2. Keyboard input\n ");
+    printf("Enter the method number:\n ");
     scanf_s("%d", &k);
     if (k == 1) {
         a = (float*)malloc(n * sizeof(float));
@@ -247,12 +245,12 @@ int main()
             check[i] = a[i];
         }
     }
-    printf("Äîñòóïíûå ñîðòèðîâêè:\n ");
-    printf("1. Ñîðòèðîâêà ïóçûðüêîì\n ");
-    printf("2. Áûñòðàÿ ñîðòèðîâêà\n ");
-    printf("3. Ñîðòèðîâêà ñëèÿíèåì\n ");
-    printf("4. Ïîðàçðÿäíàÿ ñîðòèðîâêà\n ");
-    printf("Ââåäèòå íîìåð ñîðòèðîâêè:\n ");
+    printf("Available sorting options:\n ");
+    printf("1. Bubble sort\n ");
+    printf("2. Quicksort\n ");
+    printf("3. Mergesort\n ");
+    printf("4. Radixsort\n ");
+    printf("Enter the sorting number:\n ");
     scanf_s("%d", &K);
     srand(time(0));
 
@@ -260,17 +258,17 @@ int main()
 
         bubble_sort(a, n);
         checking(a, check, n);
-        printf("Êîëè÷åñòâî ñðàâíåíèé: ");
+        printf("Number of comparisons: ");
         printf("%d\n ", count1);
-        printf("Êîëè÷åñòâî ïåðåñòàíîâîê: ");
+        printf("Number of permutations: ");
         printf("%d\n ", count2);
     }
     if (K == 2) {
         quicksort(a, 0, n - 1);
         checking(a, check, n);
-        printf("Êîëè÷åñòâî ñðàâíåíèé: ");
+        printf("Number of comparisons: ");
         printf("%d\n ", count1);
-        printf("Êîëè÷åñòâî ïåðåñòàíîâîê: ");
+        printf("Number of permutations: ");
         printf("%d\n ", count2);
     }
     if (K == 3) {
@@ -280,9 +278,9 @@ int main()
 
         mergesort(a, b, 0, n - 1);
         checking(a, check, n);
-        printf("Êîëè÷åñòâî ñðàâíåíèé: ");
+        printf("Number of comparisons: ");
         printf("%d\n ", count1);
-        printf("Êîëè÷åñòâî ïåðåñòàíîâîê: ");
+        printf("Number of permutations: ");
         printf("%d\n ", count2);
     }
     if (K == 4) {
@@ -291,7 +289,7 @@ int main()
         radixSort(a, out, n);
         checking(a, check, n);
 
-        printf("Êîëè÷åñòâî ïåðåñòàíîâîê: ");
+        printf("Number of permutations:");
         printf("%d\n ", count2);
     }
 
