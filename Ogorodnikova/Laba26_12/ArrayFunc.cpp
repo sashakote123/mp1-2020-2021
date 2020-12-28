@@ -3,11 +3,11 @@
 #include "ArrayF.h"
 void size_arr(float** arr, int* n)
 {
-	printf("Введите размер массива: ");
+	printf("Enter size array: ");
 	scanf("%d", n);
 	free(*arr);
 	*arr = (float*)malloc(*n * sizeof(float));
-	printf("Готово \n");
+	printf("Done \n");
 	system("pause");
 }
 
@@ -23,7 +23,7 @@ void print_arr(float* arr, int n)
 
 void keyboard_in(float* arr, int n)
 {
-	printf("Введите %d элементов в массиве(через пробел): ", n);
+	printf("Enter %d elements: ", n);
 	for(int i = 0; i < n; i++)
 	{
 		scanf("%f", &arr[i]);
@@ -37,6 +37,6 @@ void arr_rand(float* arr, int n)
 	{
 		arr[i] = (float)(rand()) / RAND_MAX * (max - min) + min;
 	}
-	printf("Готово\n");
+	printf("Done\n");
 	system("pause");
 }

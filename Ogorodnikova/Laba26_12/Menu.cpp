@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <ctime>
+
 #include "Menus.h"
 #include "ArrayF.h"
 #include "ArraySort.h"
 void menu(float** arr, int* n)
 {
 	char c;
-	char men[4][50] = { {"Информация о массиве"}, {"Сортировка"}, {"Печать массива"}, {"Выход"} };
+	char men[4][50] = { {"Information about array"}, {"Sorts"}, {"Print array"}, {"Exit"} };
 	const int max_op = 4;
 	int op = 0;
-	printf("Размер массива: %d\n", *n);
 	while (true)
 	{
 		system("cls");
@@ -62,11 +63,11 @@ void menu(float** arr, int* n)
 }
 void menu_sort(float* arr, int n)
 {
+	double start = clock();
 	char c;
-	char men[5][50] = { {"Сортировка вставками"}, {"Сортировка Шелла"}, {"Слиянием"}, {"Сортировка Хоара"}, {"Выход"} };
+	char men[5][50] = { {"Insertion sort"}, {"Shell sort"}, {"merge sort"}, {"Quicksort"}, {"Exit"} };
 	const int max_op = 5;
 	int op = 0;
-	printf("Размер массива: %d\n", n);
 	while (true)
 	{
 		system("cls");
@@ -95,16 +96,28 @@ void menu_sort(float* arr, int n)
 			switch (op)
 			{
 			case 0:
+				start = clock();
 				insert_sort(arr, n);
+				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				system("pause");
 				break;
 			case 1:
+				start = clock();
 				shell_sort(arr, n);
+				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				system("pause");
 				break;
 			case 2:
+				start = clock();
 				merge_sort(arr, 0, n-1);
+				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				system("pause");
 				break;
 			case 3:
+				start = clock();
 				hoar_sort(arr, 0, n - 1);
+				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				system("pause");
 				break;
 			case 4:
 				c = 27;
@@ -122,7 +135,7 @@ void menu_sort(float* arr, int n)
 void menu_array(float** arr, int* n)
 {
 	char c;
-	char men[4][50] = { {"Изменение размера массива"}, {"Заполнение массива рандомными элементами"}, {"Заполнение массива с клавиатуры"}, {"Выход"} };
+	char men[4][50] = { {"Enter size array"}, {"Random elements of array"}, {"Keyboard enter"}, {"Exit"} };
 	const int max_op = 4;
 	int op = 0;
 	while (true)

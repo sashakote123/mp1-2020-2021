@@ -6,7 +6,6 @@
 
 int main()
 {
-	setlocale(LC_ALL, "RUS");
 	srand(time(NULL));
 	int n = 15;
 	float* arr = (float*)malloc(n * sizeof(float));
