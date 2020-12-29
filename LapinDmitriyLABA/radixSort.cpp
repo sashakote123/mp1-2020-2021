@@ -27,7 +27,7 @@ void radixPass(short Offset, long N, double* source, double* dest, long* count) 
 
 void createCounters(double* data, long* counters, long N) {
 
-	uchar* bp = (uchar*)data;             //data[1],   bp[1*sizeof(double)]
+	uchar* bp = (uchar*)data;             
 	uchar* dataEnd = (uchar*)(data + N);
 	ushort i;
 
@@ -41,7 +41,7 @@ void createCounters(double* data, long* counters, long N) {
 
 
 
-void floatRadixLastPass(short Offset, long N, double* source, double* dest, long* count) {
+void doubleRadixLastPass(short Offset, long N, double* source, double* dest, long* count) {
 	double* sp;
 	long s, c, i, * cp;
 	uchar* bp;
@@ -57,12 +57,12 @@ void floatRadixLastPass(short Offset, long N, double* source, double* dest, long
 		s += c;
 	}
 
-	// изменения, касающиеся обратного расположения отрицательных чисел.
-	s = count[255] = 0;                 //
-	cp = count + 254;                     //
-	for (i = 254; i >= 128; --i, --cp) {//
-		*cp += s;                       // остальное - то же, что и в
-		s = *cp;                        // signedRadixLastPass
+	
+	s = count[255] = 0;                 
+	cp = count + 254;                     
+	for (i = 254; i >= 128; --i, --cp) {
+		*cp += s;                       
+		s = *cp;                        
 	}
 
 	bp = (uchar*)source + Offset;
@@ -81,7 +81,7 @@ void floatRadixLastPass(short Offset, long N, double* source, double* dest, long
 
 
 void radixSortIn(double* in, double* out, long* counters, long N) {
-	//Размеры in, out – N, размер counters - sizeof(double)*256
+	
 	long* count;
 	ushort i;
 	createCounters(in, counters, N);
@@ -96,7 +96,7 @@ void radixSortIn(double* in, double* out, long* counters, long N) {
 	}
 
 	count = counters + 256 * i;
-	floatRadixLastPass(i, N, in, out, count);
+	doubleRadixLastPass(i, N, in, out, count);
 	for (long j = 0; j < N; j++) {
 		RadPer++;
 		in[j] = out[j];

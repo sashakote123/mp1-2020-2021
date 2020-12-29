@@ -6,11 +6,13 @@ int SelPer = 0;
 void SelectSort(double* a, size_t size) {
     for (int i = 0; i < size - 1; i++) {
         int min_id = i;
-        for (int j = i + 1; j < size; j++)
+        for (int j = i + 1; j < size; j++) {
+            SelCom++;
             if (a[j] < a[min_id]) {
                 min_id = j;
-                SelCom++;
+                
             }
+        }
 
         if (min_id > i) {
             SelPer++;

@@ -59,7 +59,14 @@ void checkArray(double* array, int size) {
 
 }
 
-
+void reverseArray(double* array, int size) {
+	for (int i = 0; i < size/2; i++) {
+		double temp = array[i];
+		array[i] = array[size - 1 - i];
+		array[size - 1 - i] = temp;
+	}
+	printf("\nArray reversed\n");
+}
 
 void SortArray(double* array, int size, int check) {
 	int input;
@@ -104,7 +111,8 @@ void printMenu() {
 	printf("2.Sort array\n");
 	printf("3.Sort array with check\n");
 	printf("4.Print array\n");
-	printf("5.EXIT\n");
+	printf("5.Reverse array\n");
+	printf("6.EXIT\n");
 }
 
 
@@ -123,7 +131,7 @@ int main()
 
 	printf(">> ");
 	scanf("%d", &input);
-	while (input != 5) {
+	while (input != 6) {
 		switch (input) {
 		case 1:
 			printf("Input Size:\n>> ");
@@ -142,26 +150,17 @@ int main()
 		case 4:
 			printArray(array, size);
 			break;
+		case 5:
+			reverseArray(array, size);
+			break;
 
 		}
-
-
-
-
 
 		printMenu();
 		printf("\n>> ");
 		scanf("%d", &input);
 
 	}
-
-
-
-
-
-
-
-
 }
 
 
