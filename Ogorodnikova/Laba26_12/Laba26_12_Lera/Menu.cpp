@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <ctime>
-
 #include "Menus.h"
 #include "ArrayF.h"
 #include "ArraySort.h"
+
 void menu(float** arr, int* n)
 {
 	char c;
@@ -97,26 +97,34 @@ void menu_sort(float* arr, int n)
 			{
 			case 0:
 				start = clock();
+				obnull_if_swap();
 				insert_sort(arr, n);
 				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				print_if_and_swap();
 				system("pause");
 				break;
 			case 1:
 				start = clock();
+				obnull_if_swap();
 				shell_sort(arr, n);
 				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				print_if_and_swap();
 				system("pause");
 				break;
 			case 2:
 				start = clock();
-				merge_sort(arr, 0, n-1);
+				obnull_if_swap();
+				merge_sort(arr, n);
 				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				print_if_and_swap();
 				system("pause");
 				break;
 			case 3:
 				start = clock();
+				obnull_if_swap();
 				hoar_sort(arr, 0, n - 1);
 				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				print_if_and_swap();
 				system("pause");
 				break;
 			case 4:
