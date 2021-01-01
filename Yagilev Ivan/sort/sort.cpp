@@ -235,30 +235,6 @@ int main(){
     
     if (answer == 4) {
         radix_sort(a, n);
-        float tmpr;
-        int k;
-        for (int i = 0; i < (n / 2); i++) {
-            tmpr = a[i];
-            a[i] = a[n - i - 1];
-            a[n - i - 1] = tmpr;
-        }
-        for (int i = 0; i < n; i++) {
-            if (a[i] >= 0) {
-                k = i;
-                break;
-            }
-        }
-        int j = 0;
-        int con = k;
-        for (k; k < ((n + con)/2); k++) {
-            tmpr = a[k];
-            a[k] = a[n - 1 - j];
-            a[n - 1 - j] = tmpr;
-            j++;
-            if (k == (n - 1 - j)) {
-                break;
-            }
-        }
     }
     printf("Sorted array:\n(min-max)\n[");
     for (i = 0; i < n; i++)
