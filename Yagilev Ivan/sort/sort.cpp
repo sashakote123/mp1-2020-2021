@@ -110,7 +110,7 @@ void radix_sort(float* array, int size)
         array[size - k + i] = temporary_array[i];
     }
     change++;
-    memcpy(array, temporary_array, size * sizeof(float));
+    
     free(temporary_array);
     free(counters);
 }
