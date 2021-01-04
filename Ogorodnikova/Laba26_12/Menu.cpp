@@ -65,8 +65,8 @@ void menu_sort(float* arr, int n)
 {
 	double start = clock();
 	char c;
-	char men[5][50] = { {"Insertion sort"}, {"Shell sort"}, {"merge sort"}, {"Quicksort"}, {"Exit"} };
-	const int max_op = 5;
+	char men[6][50] = { {"Insertion sort"}, {"Shell sort"}, {"merge sort"}, {"Quicksort"}, {"Radix sort"}, {"Exit"} };
+	const int max_op = 6;
 	int op = 0;
 	while (true)
 	{
@@ -128,6 +128,14 @@ void menu_sort(float* arr, int n)
 				system("pause");
 				break;
 			case 4:
+				start = clock();
+				obnull_if_swap();
+				radix_sort(arr, n);
+				printf("%.4lf sec.\n", (clock() - start) / CLOCKS_PER_SEC);
+				print_if_and_swap();
+				system("pause");
+				break;
+			case 5:
 				c = 27;
 				break;
 			default:
