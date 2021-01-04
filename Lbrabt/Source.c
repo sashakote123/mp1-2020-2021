@@ -116,7 +116,7 @@ void random(double* arr, size_t size)
 	int i;
 	printf("\nArray:\n");
 	for (i = 0; i < size; i++)
-		arr[i] = rand() % 100;
+		arr[i] = rand() % 109 + (-37);
 	printf("%.4lf ", arr[i]);
 }
 void check(double* arr, size_t size)
@@ -324,13 +324,13 @@ void radix_pass(short Offset, long N, double* source, double* dest, long* count)
 	unsigned char* bp;
 
 	for (i = 256; i > 0; i--, ++cp)
-	{
+    {
 		d = *cp; *cp = s; s += d;
 	}
 
 	bp = (unsigned char*)source + Offset;
 	sp = source;
-	for (i = N; i > 0; i--, bp += sizeof(double), ++sp)
+	for (i = N; i > 0; --i, bp += sizeof(double), ++sp)
 	{
 		cp = count + *bp; dest[*cp] = *sp; (*cp)++;
 	}
@@ -339,16 +339,30 @@ void radix_pass(short Offset, long N, double* source, double* dest, long* count)
 
 void radix_sort(double* in, double* out, long* counters, long N)
 {
-
+	
 	long* count;
-
+	unsigned short i;
+	int k = 0;
 	create_counters(in, counters, N);
 
-	for (unsigned short i = 0; i < sizeof(double); i++)
+	for (i = 0; i < sizeof(double); i++)
 	{
 		count = counters + 256 * i;
 		radix_pass(i, N, in, out, count);
 		for (long j = 0; j < N; j++)
 			in[j] = out[j];
 	}
+	
+	while (in[k] >= 0 && k < N)
+		k++;
+	for (int i = 0; i < N - k; i++)
+	{
+		in[i] = out[N - 1 - i];
+	}
+	for (int i = 0; i < k; i++)
+	{
+		in[N - k + i] = out[i];
+	}
+	free(arr);
+	free(counters);
 }
